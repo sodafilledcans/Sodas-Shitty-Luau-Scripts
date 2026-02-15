@@ -82,8 +82,8 @@ gui.Name = "CollectorGui"
 gui.Parent = CoreGui
 gui.ResetOnSpawn = false
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0,300,0,240)
-MainFrame.Position = UDim2.new(0.5,-150,0.5,-120)
+MainFrame.Size = UDim2.new(0,300,0,280)
+MainFrame.Position = UDim2.new(0.5,-150,0.5,-140)
 MainFrame.BackgroundColor3 = CurrentTheme.Background
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = gui
@@ -162,37 +162,65 @@ createButton("Warehouse Helper", CurrentTheme.ButtonWarehouse, CurrentTheme.Butt
     local mapSetup = warehouse:FindFirstChild("MapSetup")
     if not mapSetup then return end
     local interactives = mapSetup:FindFirstChild("Interactives")
-    if not interactives then return end
-    for _, door in ipairs(interactives:GetChildren()) do
-        if door.Name == "Door" and door:IsA("Model") then
-            for _, obj in ipairs(door:GetDescendants()) do
-                if obj:IsA("BasePart") or obj:IsA("MeshPart") or obj:IsA("UnionOperation") then
-                    local highlight = Instance.new("Highlight")
-                    highlight.Adornee = obj
-                    highlight.Parent = gui
-                    highlight.FillColor = Color3.fromRGB(255,255,150)
-                    highlight.FillTransparency = 0.7
+    if interactives then
+        for _, door in ipairs(interactives:GetChildren()) do
+            if door.Name == "Door" and door:IsA("Model") then
+                local highlight = Instance.new("Highlight")
+                highlight.Adornee = door
+                highlight.Parent = gui
+                highlight.FillColor = Color3.fromRGB(255,255,255)
+                highlight.FillTransparency = 0.8
+                local lock = door:FindFirstChild("Lock")
+                if lock and lock:IsA("BasePart") then
+                    highlight.OutlineColor = lock.Color
+                else
                     highlight.OutlineColor = Color3.fromRGB(255,255,255)
-                    highlight.OutlineTransparency = 0
-                    table.insert(Highlights, highlight)
                 end
+                highlight.OutlineTransparency = 0
+                table.insert(Highlights, highlight)
             end
-            local nextFolder = door:FindFirstChild("NextItemSpawns")
-            if nextFolder then
-                for _, obj in ipairs(nextFolder:GetDescendants()) do
-                    if obj:IsA("BasePart") or obj:IsA("MeshPart") or obj:IsA("UnionOperation") then
-                        obj.Transparency = 0
-                        local highlight = Instance.new("Highlight")
-                        highlight.Adornee = obj
-                        highlight.Parent = gui
-                        highlight.FillColor = Color3.fromRGB(255,255,150)
-                        highlight.FillTransparency = 0.7
-                        highlight.OutlineColor = Color3.fromRGB(255,255,255)
-                        highlight.OutlineTransparency = 0
-                        table.insert(Highlights, highlight)
-                    end
-                end
-            end
+        end
+    end
+
+    local keyNames = {
+        BlackKey = Color3.fromRGB(0,0,0),
+        BlueKey = Color3.fromRGB(0,0,255),
+        DarkBlueKey = Color3.fromRGB(0,0,150),
+        OrangeKey = Color3.fromRGB(255,150,0),
+        PinkKey = Color3.fromRGB(255,100,150),
+        PurpleKey = Color3.fromRGB(150,0,150),
+        RedKey = Color3.fromRGB(255,0,0),
+        TealKey = Color3.fromRGB(0,200,200),
+        WhiteKey = Color3.fromRGB(255,255,255),
+        YellowKey = Color3.fromRGB(255,255,0)
+    }
+
+    for keyName,keyColor in pairs(keyNames) do
+        local keyObj = mapSetup:FindFirstChild(keyName)
+        if keyObj then
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = keyObj
+            highlight.Parent = gui
+            highlight.FillColor = keyColor
+            highlight.FillTransparency = 0.6
+            highlight.OutlineColor = keyColor
+            highlight.OutlineTransparency = 0
+            table.insert(Highlights, highlight)
+        end
+    end
+
+    local patrols = mapSetup:FindFirstChild("PatrolAssets") and mapSetup.PatrolAssets:FindFirstChild("PatrolNPCs")
+    if patrols then
+        local chaseNor = patrols:FindFirstChild("ChaseNor")
+        if chaseNor and chaseNor:IsA("Model") then
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = chaseNor
+            highlight.Parent = gui
+            highlight.FillColor = Color3.fromRGB(0,50,0)
+            highlight.FillTransparency = 0.7
+            highlight.OutlineColor = Color3.fromRGB(0,255,0)
+            highlight.OutlineTransparency = 0
+            table.insert(Highlights, highlight)
         end
     end
 end)
