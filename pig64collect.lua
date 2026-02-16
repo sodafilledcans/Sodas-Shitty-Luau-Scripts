@@ -78,7 +78,7 @@ local function warnMessage(msg)
 end
 
 local gui = Instance.new("ScreenGui")
-gui.Name = "CollectorGui"
+gui.Name = "Pig64 Menu Thing I Guess"
 gui.Parent = CoreGui
 gui.ResetOnSpawn = false
 local MainFrame = Instance.new("Frame")
