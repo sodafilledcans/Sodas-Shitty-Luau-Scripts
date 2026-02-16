@@ -78,7 +78,7 @@ local function warnMessage(msg)
 end
 
 local gui = Instance.new("ScreenGui")
-gui.Name = "Pig64 Menu Thing I Guess"
+gui.Name = "Top"
 gui.Parent = CoreGui
 gui.ResetOnSpawn = false
 local MainFrame = Instance.new("Frame")
@@ -103,7 +103,7 @@ local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1,0,1,0)
 Title.Position = UDim2.new(0,10,0,0)
 Title.BackgroundTransparency = 1
-Title.Text = "Collector GUI"
+Title.Text = "Pig64 Menu Thing"
 Title.Font = Enum.Font.RobotoMono
 Title.TextSize = 18
 Title.TextXAlignment = Enum.TextXAlignment.Left
