@@ -185,12 +185,12 @@ createButton("Warehouse Helper", CurrentTheme.ButtonWarehouse, CurrentTheme.Butt
     local keyNames = {
         BlackKey = Color3.fromRGB(0,0,0),
         BlueKey = Color3.fromRGB(0,0,255),
-        DarkBlueKey = Color3.fromRGB(0,0,150),
-        OrangeKey = Color3.fromRGB(255,150,0),
-        PinkKey = Color3.fromRGB(255,100,150),
         PurpleKey = Color3.fromRGB(150,0,150),
         RedKey = Color3.fromRGB(255,0,0),
         TealKey = Color3.fromRGB(0,200,200),
+        GreenKey = Color3.fromRGB(0,255,0),
+        OrangeKey = Color3.fromRGB(255,150,0),
+        PinkKey = Color3.fromRGB(255,100,150),
         WhiteKey = Color3.fromRGB(255,255,255),
         YellowKey = Color3.fromRGB(255,255,0)
     }
@@ -251,6 +251,8 @@ createButton("Fullbright", CurrentTheme.Button, CurrentTheme.ButtonHover, UDim2.
     Lighting.ClockTime = 14
     Lighting.FogStart = 0
     Lighting.FogEnd = 100000
+    Lighting.Ambient = Color3.fromRGB(255,255,255)
+    Lighting.OutdoorAmbient = Color3.fromRGB(255,255,255)
 end)
 
 local dragging = false
