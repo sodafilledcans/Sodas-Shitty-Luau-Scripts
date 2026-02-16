@@ -156,7 +156,7 @@ end)
 createButton("Warehouse Helper", CurrentTheme.ButtonWarehouse, CurrentTheme.ButtonWarehouseHover, UDim2.new(0,20,0,160),function()
     local warehouse = Workspace:FindFirstChild("Maps") and Workspace.Maps:FindFirstChild("WarehouseChase")
     if not warehouse then
-        warnMessage("WarehouseChase model not found, are you loaded into the warehouse?")
+        warnMessage("WarehouseChase model not found.")
         return
     end
     local mapSetup = warehouse:FindFirstChild("MapSetup")
@@ -203,7 +203,11 @@ createButton("Warehouse Helper", CurrentTheme.ButtonWarehouse, CurrentTheme.Butt
             highlight.Parent = gui
             highlight.FillColor = keyColor
             highlight.FillTransparency = 0.6
-            highlight.OutlineColor = keyColor
+            if keyName == "BlackKey" then
+                highlight.OutlineColor = Color3.fromRGB(100,100,100)
+            else
+                highlight.OutlineColor = keyColor
+            end
             highlight.OutlineTransparency = 0
             table.insert(Highlights, highlight)
         end
@@ -223,6 +227,30 @@ createButton("Warehouse Helper", CurrentTheme.ButtonWarehouse, CurrentTheme.Butt
             table.insert(Highlights, highlight)
         end
     end
+end)
+
+createButton("Fullbright", CurrentTheme.Button, CurrentTheme.ButtonHover, UDim2.new(0,20,0,210), function()
+    local Lighting = game:GetService("Lighting")
+    for _,v in pairs(Lighting:GetChildren()) do v:Destroy() end
+    local bloom = Instance.new("BloomEffect")
+    bloom.Intensity = 0
+    bloom.Size = 0
+    bloom.Threshold = 2
+    bloom.Parent = Lighting
+    local cc = Instance.new("ColorCorrectionEffect")
+    cc.Brightness = -0.09
+    cc.Contrast = 0
+    cc.Saturation = -0.15
+    cc.TintColor = Color3.fromRGB(255,255,255)
+    cc.Parent = Lighting
+    local sun = Instance.new("SunRaysEffect")
+    sun.Intensity = 0
+    sun.Spread = 0
+    sun.Parent = Lighting
+    Lighting.GlobalShadows = false
+    Lighting.ClockTime = 14
+    Lighting.FogStart = 0
+    Lighting.FogEnd = 100000
 end)
 
 local dragging = false
